@@ -1,21 +1,20 @@
 package main
 
-
 import (
-  "os"
 	"fmt"
+	"os"
 
-  "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 
-  apiclient "github.com/nicdoye/quaytermass/client"
 	httptransport "github.com/go-openapi/runtime/client"
+	apiclient "github.com/nicdoye/quaytermass/client"
 	"github.com/nicdoye/quaytermass/client/repository"
 )
 
 func main() {
-  client := apiclient.New(httptransport.New("quay.io", "", nil), strfmt.Default)
+	client := apiclient.New(httptransport.New("quay.io", "", nil), strfmt.Default)
 
-  bearerTokenAuth := httptransport.BearerToken(os.Getenv("API_ACCESS_TOKEN"))
+	bearerTokenAuth := httptransport.BearerToken(os.Getenv("API_ACCESS_TOKEN"))
 
 	params := repository.NewDeleteRepositoryParams()
 	for _, repo := range os.Args[1:] {
@@ -23,7 +22,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			fmt.Printf("%v\n",resp)
+			fmt.Printf("%v\n", resp)
 		}
 	}
 }
